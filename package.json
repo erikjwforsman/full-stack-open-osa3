@@ -6,9 +6,9 @@
   "scripts": {
     "start": "node index.js",
     "dev": "nodemon index.js",
-    "build:ui": "rm -rf build && cd ../../../osa2/puhelinluettelo npm run build && cp -r build ../../osa3/osa3_puhelinluettelo/puhelinluettelo",
+    "build:ui": "rm -rf build && cd ../../../osa2/puhelinluettelo && npm run build --prod && cp -r build ../../osa3/osa3_puhelinluettelo/puhelinluettelo",
     "deploy": "git push heroku master",
-    "deploy":"npm run build: ui && git add . && git commit -m uibuild && git push && npm run deploy",
+    "deploy:full": "npm run build:ui && git add . && git commit -m uibuild && git push && npm run deploy",
     "test": "echo \"Error: no test specified\" && exit 1",
     "logs:prod": "heroku logs --tail"
   },
