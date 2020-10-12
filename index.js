@@ -6,7 +6,7 @@ const cors = require("cors")
 require("dotenv").config()
 const Number = require("./models/number")
 
-morgan.token("person", (req, res)=>{
+morgan.token("person", (req, res) => {
   return JSON.stringify(req.body)
 })
 app.use(cors())
@@ -15,13 +15,13 @@ app.use(express.static("build"))
 app.use(express.json())
 
 
-app.get("/info/", (req, res, next) =>{
+app.get("/info/", (req, res, next) => {
   Number.countDocuments()
     .then( amount => res.send(`<div>
                                 <p>Phonebook has info of ${amount} people</p>
                                 <p>${new Date()}</p>
                               </div>`))
-    .catch(error=>next(error))
+    .catch(error => next(error))
 
 })
 
@@ -29,9 +29,9 @@ app.get("/info/", (req, res, next) =>{
 app.get("/api/persons", (req, res, next) => {
   Number.find({})
     .then(numbers => {
-      res.json(numbers.map(number=>number.toJSON()))
+      res.json(numbers.map(number => number.toJSON()))
     })
-    .catch(error =>next(error))
+    .catch(error => next(error))
 })
 
 app.get("/api/persons/:id", (req, res, next) => {
@@ -52,7 +52,7 @@ app.delete("/api/persons/:id", (req, res, next) => {
     .then(number => {
       res.status(204).end()
     })
-    .catch(error=>next(error))
+    .catch(error => next(error))
 
 })
 
@@ -67,9 +67,9 @@ app.post("/api/persons", (req, res, next) => {
 
   person.save()
     .then(savedNumber => {
-    res.json(savedNumber.toJSON())
-  })
-    .catch(error=>next(error))
+      res.json(savedNumber.toJSON())
+    })
+    .catch(error => next(error))
 
 
 })
@@ -82,11 +82,11 @@ app.put("/api/persons/:id", (req, res, next) => {
     number: body.number
   }
 
-  Number.findByIdAndUpdate(req.params.id, number, {new:true})
+  Number.findByIdAndUpdate(req.params.id, number, { new:true })
     .then(updatedNumber => {
       res.json(updatedNumber.toJSON())
     })
-    .catch(error=>next(error))
+    .catch(error => next(error))
 })
 
 
@@ -94,7 +94,7 @@ const errorHandler = (error, req, res, next) => {
   console.error(error.message)
 
   if (error.name === "CastError") {
-    return res.status(400).send({error:"malformatted id"})
+    return res.status(400).send({ error:"malformatted id" })
   } else if (error.name === "ValidationError") {
     return res.status(400).json({ error: error.message })
   }

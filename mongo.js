@@ -34,8 +34,8 @@ if (process.argv.length>4){
 //Numeroiden tulostus
 else {
   console.log("phonebook:")
-  Number.find({}).then(result =>{
-    result.map(person =>{
+  Number.find({}).then(result => {
+    result.map(person => {
       console.log(`${person.name} ${person.number}`)
     })
     mongoose.connection.close()

@@ -13,12 +13,12 @@ mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true, useFind
   })
 
 const numberSchema = new mongoose.Schema({
-  name: {type:String, required: true, unique:true},
-  number: {type:String, required: true}
+  name: { type:String, required: true, unique:true },
+  number: { type:String, required: true }
 })
 numberSchema.plugin(uniqueValidator)
 
-numberSchema.set('toJSON', {
+numberSchema.set("toJSON", {
   transform: (document, returnedObject) => {
     returnedObject.id = returnedObject._id.toString()
     delete returnedObject._id
